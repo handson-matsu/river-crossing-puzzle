@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f7ef"><meta name="description" content="ひらめきと工夫でみんなを向こう岸へ。5つの川渡りパズルで楽しく論理的思考を育もう。"><title>川渡りパズル | River Crossing Puzzle</title><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<body>
+<header class="site-header"><a class="brand" href="#" aria-label="川渡りパズル ホーム"><span class="brand-mark">≈</span><span>川渡りパズル<small>RIVER CROSSING PUZZLE</small></span></a><span class="header-note">ひらめきを、向こう岸へ。</span></header>
+<main id="home">
+<section class="hero"><div class="hero-copy"><p class="eyebrow">THINK. TRY. CROSS.</p><h1>小さなボートで、<br>大きな<span>ひらめき。</span></h1><p class="intro">だれと渡る？ だれを残す？<br>ルールを守って、みんなを向こう岸へ。<br>じっくり考える、5つの川渡りパズル。</p><a class="primary hero-button" href="#levels">冒険をはじめる <span>↗</span></a><div class="hero-tags"><span>⌁ タップでかんたん操作</span><span>◷ 自分のペースで</span></div></div><div class="hero-art" aria-hidden="true"><div class="art-river"></div><div class="art-island left-island"><span>🌳</span><span>🐺 🥬</span></div><div class="art-island right-island"><span>🌳</span><span>🌼 🌱</span></div><div class="art-boat">🧑‍🌾 🐐<div></div></div><span class="art-cloud cloud-one">☁</span><span class="art-cloud cloud-two">☁</span><div class="art-caption">さあ、どうやって渡ろう？</div><span class="ripple r1">﹏</span><span class="ripple r2">﹏</span></div></section>
+<section id="levels" class="levels-section"><div class="section-heading"><div><p class="eyebrow">CHOOSE YOUR CHALLENGE</p><h2>どの川から、渡ってみる？</h2></div><span>5つのレベル / 何度でも挑戦</span></div><div id="level-cards" class="level-grid"></div></section>
+<section class="how-to"><h2>遊び方は、3ステップ。</h2><div><p><b>01</b><span><strong>タップして乗せる</strong>岸の仲間を選んでボートへ。</span></p><p><b>02</b><span><strong>ルールを考える</strong>残された仲間は大丈夫？</span></p><p><b>03</b><span><strong>向こう岸へ出発！</strong>みんなを運べたらクリア。</span></p></div></section>
+</main>
+<main id="game" hidden>
+<div class="game-top"><button id="back" class="text-button">← 問題選択へ</button><span id="mode-label" class="mode-badge"></span><span id="game-stars" class="stars"></span></div>
+<div class="game-heading"><div><p id="level-label" class="eyebrow"></p><h1 id="game-title"></h1></div><div class="move-counter"><strong id="moves">0</strong><span>手</span></div></div>
+<p class="game-instruction">岸の仲間をタップして乗船。ボートの仲間をタップすると降ります。</p>
+<section class="board" aria-label="川渡りパズルの盤面"><div class="river-pattern" aria-hidden="true"></div><section class="bank left-bank"><h2>左岸 <span>START</span></h2><div id="left-characters" class="characters"></div></section><section class="bank right-bank"><h2>右岸 <span>GOAL</span></h2><div id="right-characters" class="characters"></div></section><div id="boat" class="boat" data-side="0"><div id="passengers" class="passengers"></div><div class="boat-hull"><span id="boat-count">0 / 2</span></div><span id="boat-location" class="boat-location">左岸に停泊中</span></div></section>
+<div class="play-controls"><button id="reset" class="secondary">↻ リセット</button><button id="cross" class="primary">川を渡る <span>→</span></button></div>
+<p id="message" class="message" role="status" aria-live="polite"></p>
+<section id="success" class="success" hidden tabindex="-1"><span class="success-icon">🎉</span><h2>みんなで、渡れた！</h2><p id="success-text"></p><button id="next" class="primary">次のレベルへ →</button></section>
+<details class="rules" open><summary>ⓘ このレベルのルール</summary><ul id="rule-list"></ul><p class="rule-note">乗り降りの間は、ボートも停泊している岸の一部です。出発するときに、移動後の両岸を確認します。</p></details>
+</main>
+<dialog id="mode-dialog" class="game-dialog" aria-labelledby="mode-title" aria-describedby="mode-level">
+<p class="eyebrow">CHOOSE YOUR MODE</p><h2 id="mode-title">遊び方を選ぼう</h2><p id="mode-level"></p>
+<div class="mode-options"><button id="practice-start" class="mode-option"><strong>🌱 練習モード</strong><span>間違えても大丈夫。何度でも考え直せます。</span></button><button id="challenge-start" class="mode-option"><strong>⚑ チャレンジモード</strong><span>不正な操作を一度でもするとゲームオーバー。慎重に挑戦しよう。</span></button></div>
+<p class="dialog-note">定員オーバー・空のボートでの出発・操作者の不在も不正な操作に含みます。</p><button id="mode-cancel" class="secondary">問題選択へ戻る</button>
+</dialog>
+<dialog id="error-dialog" class="game-dialog warning-dialog" aria-labelledby="error-title" aria-describedby="error-reason">
+<div class="warning-icon" aria-hidden="true">⚠</div><h2 id="error-title"></h2><p id="error-reason"></p>
+<div id="practice-actions"><button id="error-close" class="primary">閉じて続ける</button></div>
+<div id="over-actions" class="dialog-actions" hidden><button id="retry" class="primary">もう一度挑戦</button><button id="over-home" class="secondary">問題選択へ</button></div>
+</dialog>
+<footer><span>≈ RIVER CROSSING PUZZLE</span><p>あせらず、ためして、ひらめこう。</p></footer>
+</body></html>
